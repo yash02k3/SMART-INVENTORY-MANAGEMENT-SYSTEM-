@@ -4,7 +4,7 @@ package com.cypheranalytica.inventory.exception;
  * Thrown when trying to insert an item with an existing SKU or unique constraint.
  * 
  * Part of Smart Inventory Management System
- * Developed by: Payal (Roll No. 248036)
+ * Developed by: Yash
  * Cypher Analytica Internship
  */
 public class DuplicateItemException extends InventoryException {

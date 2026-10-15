@@ -17,7 +17,7 @@ import java.util.List;
  * Service Layer handling core inventory operations, validations, and business logic.
  * 
  * Part of Smart Inventory Management System
- * Developed by: Payal (Roll No. 248036)
+ * Developed by: Yash
  * Cypher Analytica Internship
  */
 public class InventoryService {

@@ -7,7 +7,7 @@ import java.sql.Timestamp;
  * Model representing an Audit Log entry for quantity adjustments.
  * 
  * Part of Smart Inventory Management System
- * Developed by: Payal (Roll No. 248036)
+ * Developed by: Yash
  * Cypher Analytica Internship
  */
 public class StockAuditLog implements Serializable {

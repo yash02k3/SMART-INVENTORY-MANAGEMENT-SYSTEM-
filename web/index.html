@@ -8,7 +8,8 @@
 /* ====================================================================
    INVENTORYPRO - SMART INVENTORY MANAGEMENT SYSTEM
    Modern UI Stylesheet matching PDF Slide 15 & 16 Mockups
-   Author: Payal (Roll No. 248036) | Cypher Analytica Internship
+   Author: Yash | Cypher Analytica Internship
+   College: Global Institute of Technology & Management, Gurugram
    ==================================================================== */
 
 :root {
@@ -1528,7 +1529,7 @@ body {
             <div class="login-credentials-box">
                 <div class="cred-title">🔑 Demo Login Credentials:</div>
                 <div class="cred-row">
-                    <span>Username:</span> <code>admin</code> or <code>payal</code>
+                    <span>Username:</span> <code>admin</code> or <code>yash</code>
                 </div>
                 <div class="cred-row">
                     <span>Password:</span> <code>admin123</code>
@@ -1536,7 +1537,7 @@ body {
             </div>
 
             <div class="login-footer">
-                <small>Submitted by <strong>Payal</strong> (Roll No: 248036 | B.Tech AI & DS)<br>Global Institute of Technology & Management • Cypher Analytica</small>
+                <small>Smart Inventory Management System • Project by <strong>Yash</strong><br>Global Institute of Technology & Management • Cypher Analytica</small>
             </div>
         </div>
     </div>
@@ -1588,10 +1589,10 @@ body {
 
             <div class="sidebar-footer">
                 <div class="user-profile">
-                    <div class="avatar">P</div>
+                    <div class="avatar">Y</div>
                     <div class="user-details">
-                        <div class="user-name">Payal</div>
-                        <div class="user-role">B.Tech AI & DS • GITM</div>
+                        <div class="user-name">Yash</div>
+                        <div class="user-role">Administrator • GITM</div>
                     </div>
                     <button class="logout-btn" id="btn-logout" title="Sign Out">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
@@ -1887,19 +1888,11 @@ Generating report...
                             <div class="meta-info-grid">
                                 <div class="meta-item">
                                     <span class="meta-label">Developer</span>
-                                    <span class="meta-value"><strong>Payal</strong></span>
-                                </div>
-                                <div class="meta-item">
-                                    <span class="meta-label">University Roll No</span>
-                                    <span class="meta-value">248036</span>
-                                </div>
-                                <div class="meta-item">
-                                    <span class="meta-label">Registration No</span>
-                                    <span class="meta-value">241394000031</span>
+                                    <span class="meta-value"><strong>Yash</strong></span>
                                 </div>
                                 <div class="meta-item">
                                     <span class="meta-label">Branch & Degree</span>
-                                    <span class="meta-value">B.Tech (Artificial Intelligence & Data Science)</span>
+                                    <span class="meta-value">B.Tech (Computer Science & Engineering / AI & DS)</span>
                                 </div>
                                 <div class="meta-item">
                                     <span class="meta-label">College</span>
@@ -2085,7 +2078,7 @@ Generating report...
 /**
  * InventoryPro - Smart Inventory Management System
  * Web Frontend Application Controller
- * Developed by: Payal (Roll No. 248036) | Cypher Analytica Internship
+ * Developed by: Yash | Cypher Analytica Internship
  */
 
 // ====================================================================
@@ -2182,13 +2175,13 @@ class InventoryApp {
             const username = document.getElementById("login-username").value.trim().toLowerCase();
             const password = document.getElementById("login-password").value.trim();
 
-            // Accepted credentials: admin / admin123 OR payal / admin123
-            if ((username === "admin" || username === "payal") && password === "admin123") {
+            // Accepted credentials: admin / admin123 OR yash / admin123
+            if ((username === "admin" || username === "yash") && password === "admin123") {
                 sessionStorage.setItem("inventory_logged_in", "true");
                 loginScreen.style.display = "none";
                 mainApp.style.display = "flex";
                 loginError.style.display = "none";
-                this.showToast("Welcome back! Signed in as " + (username === "payal" ? "Payal" : "Administrator"), "success");
+                this.showToast("Welcome back! Signed in as " + (username === "yash" ? "Yash" : "Administrator"), "success");
             } else {
                 loginError.textContent = "Invalid username or password! Check demo credentials below.";
                 loginError.style.display = "block";

@@ -6,7 +6,7 @@ import java.io.Serializable;
  * Model representing an Inventory Supplier.
  * 
  * Part of Smart Inventory Management System
- * Developed by: Payal (Roll No. 248036)
+ * Developed by: Yash
  * Cypher Analytica Internship
  */
 public class Supplier implements Serializable {

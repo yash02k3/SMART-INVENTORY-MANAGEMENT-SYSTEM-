@@ -5,7 +5,7 @@ package com.cypheranalytica.inventory.exception;
  * Prevents overselling in single-threaded and multithreaded transactions.
  * 
  * Part of Smart Inventory Management System
- * Developed by: Payal (Roll No. 248036)
+ * Developed by: Yash
  * Cypher Analytica Internship
  */
 public class InsufficientStockException extends InventoryException {

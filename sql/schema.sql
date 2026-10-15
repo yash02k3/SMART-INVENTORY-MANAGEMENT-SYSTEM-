@@ -1,6 +1,6 @@
 -- ====================================================================
 -- SMART INVENTORY MANAGEMENT SYSTEM
--- Developed by: Payal (Roll No. 248036) | B.Tech AI & DS
+-- Developed by: Yash
 -- Global Institute of Technology & Management (GITM), Gurugram
 -- Internship Partner: Cypher Analytica, Indore
 -- Database: MySQL 8.0+

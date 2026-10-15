@@ -8,7 +8,7 @@ import java.util.List;
  * Data Access Object (DAO) interface for Stock Audit Logs.
  * 
  * Part of Smart Inventory Management System
- * Developed by: Payal (Roll No. 248036)
+ * Developed by: Yash
  * Cypher Analytica Internship
  */
 public interface AuditDAO {

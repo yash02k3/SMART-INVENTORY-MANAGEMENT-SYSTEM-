@@ -2,7 +2,7 @@
 # ====================================================================
 # SMART INVENTORY MANAGEMENT SYSTEM
 # Runner script for macOS and Linux
-# Author: Payal (Roll No. 248036) | Cypher Analytica Internship
+# Author: Yash | Cypher Analytica Internship
 # ====================================================================
 
 # Resolve Java & Javac

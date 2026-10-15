@@ -8,7 +8,7 @@ import java.sql.Timestamp;
  * Model representing an Item / Product in the inventory.
  * 
  * Part of Smart Inventory Management System
- * Developed by: Payal (Roll No. 248036)
+ * Developed by: Yash
  * Cypher Analytica Internship
  */
 public class Item implements Serializable, Comparable<Item> {

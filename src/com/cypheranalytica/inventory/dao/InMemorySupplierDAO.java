@@ -11,7 +11,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  * In-Memory implementation of SupplierDAO using Java Collections Framework.
  * 
  * Part of Smart Inventory Management System
- * Developed by: Payal (Roll No. 248036)
+ * Developed by: Yash
  * Cypher Analytica Internship
  */
 public class InMemorySupplierDAO implements SupplierDAO {

@@ -15,7 +15,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  * Demonstrates Collections Framework principles and provides zero-config demo support.
  * 
  * Part of Smart Inventory Management System
- * Developed by: Payal (Roll No. 248036)
+ * Developed by: Yash
  * Cypher Analytica Internship
  */
 public class InMemoryItemDAO implements ItemDAO {

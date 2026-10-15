@@ -6,7 +6,7 @@ import java.io.Serializable;
  * Model representing a Product Category.
  * 
  * Part of Smart Inventory Management System
- * Developed by: Payal (Roll No. 248036)
+ * Developed by: Yash
  * Cypher Analytica Internship
  */
 public class Category implements Serializable {

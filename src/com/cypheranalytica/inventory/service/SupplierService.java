@@ -11,7 +11,7 @@ import java.util.List;
  * Service Layer handling Supplier operations.
  * 
  * Part of Smart Inventory Management System
- * Developed by: Payal (Roll No. 248036)
+ * Developed by: Yash
  * Cypher Analytica Internship
  */
 public class SupplierService {

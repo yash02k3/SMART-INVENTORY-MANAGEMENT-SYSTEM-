@@ -13,7 +13,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  * In-Memory implementation of TransactionDAO using Collections (List, Queue).
  * 
  * Part of Smart Inventory Management System
- * Developed by: Payal (Roll No. 248036)
+ * Developed by: Yash
  * Cypher Analytica Internship
  */
 public class InMemoryTransactionDAO implements TransactionDAO {

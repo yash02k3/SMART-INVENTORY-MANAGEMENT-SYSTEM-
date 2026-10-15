@@ -24,7 +24,7 @@ import java.util.Scanner;
  * Implements the menu structure shown in the internship presentation (Slide 14).
  * 
  * Part of Smart Inventory Management System
- * Developed by: Payal (Roll No. 248036)
+ * Developed by: Yash
  * Cypher Analytica Internship
  */
 public class ConsoleMenu {
@@ -97,7 +97,7 @@ public class ConsoleMenu {
         System.out.println("================================================================================");
         System.out.println("                     SMART INVENTORY MANAGEMENT SYSTEM                          ");
         System.out.println("                  Cypher Analytica Summer Internship Project                    ");
-        System.out.println("             Submitted by: Payal (Roll No: 248036 | B.Tech AI & DS)             ");
+        System.out.println("             Submitted by: Yash | Global Institute of Technology & Management       ");
         System.out.println("                     [Engine: In-Memory Collections]                            ");
         System.out.println("================================================================================");
         System.out.println("  1. Add New Item");
@@ -425,7 +425,7 @@ public class ConsoleMenu {
     private void handleAboutProject() {
         System.out.println("\n------------------ [9. PROJECT INFORMATION] -------------------");
         System.out.println("  Project Title   : Smart Inventory Management System");
-        System.out.println("  Developer       : Payal (Roll No: 248036)");
+        System.out.println("  Developer       : Yash");
         System.out.println("  Degree & Branch : B.Tech (AI & DS), 3rd Year");
         System.out.println("  College         : Global Institute of Technology & Management, Gurugram");
         System.out.println("  Internship      : Cypher Analytica, Indore (June - August 2026)");
@@ -440,7 +440,7 @@ public class ConsoleMenu {
     private void displayExitMessage() {
         System.out.println("\n================================================================================");
         System.out.println("       Thank you for using Smart Inventory Management System!                    ");
-        System.out.println("             Project by: Payal (Roll No. 248036)                                ");
+        System.out.println("             Project by: Yash                                                   ");
         System.out.println("   Global Institute of Technology & Management | Cypher Analytica               ");
         System.out.println("================================================================================\n");
     }

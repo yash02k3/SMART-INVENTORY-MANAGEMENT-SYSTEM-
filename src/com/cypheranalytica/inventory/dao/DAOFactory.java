@@ -5,7 +5,7 @@ package com.cypheranalytica.inventory.dao;
  * Uses Java Collections Framework (ArrayList, HashMap, TreeMap) for clean in-memory storage.
  * 
  * Part of Smart Inventory Management System
- * Developed by: Payal (Roll No. 248036)
+ * Developed by: Yash
  * Cypher Analytica Internship
  */
 public class DAOFactory {

@@ -2,10 +2,10 @@
 REM ====================================================================
 REM SMART INVENTORY MANAGEMENT SYSTEM
 REM Runner script for Windows
-REM Author: Payal (Roll No. 248036) | Cypher Analytica Internship
+REM Author: Yash | Cypher Analytica Internship
 REM ====================================================================
 
-title Smart Inventory Management System - Payal
+title Smart Inventory Management System
 
 echo ==========================================================
 echo  Starting Smart Inventory Management System...

@@ -11,7 +11,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  * In-Memory implementation of AuditDAO using Collections.
  * 
  * Part of Smart Inventory Management System
- * Developed by: Payal (Roll No. 248036)
+ * Developed by: Yash
  * Cypher Analytica Internship
  */
 public class InMemoryAuditDAO implements AuditDAO {

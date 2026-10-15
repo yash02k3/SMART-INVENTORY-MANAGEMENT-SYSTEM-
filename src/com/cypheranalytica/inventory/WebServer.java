@@ -28,7 +28,7 @@ import java.util.concurrent.Executors;
  * and exposes RESTful JSON API endpoints for Inventory operations.
  * 
  * Part of Smart Inventory Management System
- * Developed by: Payal (Roll No. 248036)
+ * Developed by: Yash
  * Cypher Analytica Internship
  */
 public class WebServer {

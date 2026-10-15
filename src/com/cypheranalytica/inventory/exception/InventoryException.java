@@ -4,7 +4,7 @@ package com.cypheranalytica.inventory.exception;
  * Base checked exception for Smart Inventory Management System.
  * 
  * Part of Smart Inventory Management System
- * Developed by: Payal (Roll No. 248036)
+ * Developed by: Yash
  * Cypher Analytica Internship
  */
 public class InventoryException extends Exception {

@@ -1,7 +1,7 @@
 /**
  * InventoryPro - Smart Inventory Management System
  * Web Frontend Application Controller
- * Developed by: Payal (Roll No. 248036) | Cypher Analytica Internship
+ * Developed by: Yash | Cypher Analytica Internship
  */
 
 // ====================================================================
@@ -98,13 +98,13 @@ class InventoryApp {
             const username = document.getElementById("login-username").value.trim().toLowerCase();
             const password = document.getElementById("login-password").value.trim();
 
-            // Accepted credentials: admin / admin123 OR payal / admin123
-            if ((username === "admin" || username === "payal") && password === "admin123") {
+            // Accepted credentials: admin / admin123 OR yash / admin123
+            if ((username === "admin" || username === "yash") && password === "admin123") {
                 sessionStorage.setItem("inventory_logged_in", "true");
                 loginScreen.style.display = "none";
                 mainApp.style.display = "flex";
                 loginError.style.display = "none";
-                this.showToast("Welcome back! Signed in as " + (username === "payal" ? "Payal" : "Administrator"), "success");
+                this.showToast("Welcome back! Signed in as " + (username === "yash" ? "Yash" : "Administrator"), "success");
             } else {
                 loginError.textContent = "Invalid username or password! Check demo credentials below.";
                 loginError.style.display = "block";

@@ -11,7 +11,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  * In-Memory implementation of CategoryDAO using Java Collections Framework (Map, List).
  * 
  * Part of Smart Inventory Management System
- * Developed by: Payal (Roll No. 248036)
+ * Developed by: Yash
  * Cypher Analytica Internship
  */
 public class InMemoryCategoryDAO implements CategoryDAO {

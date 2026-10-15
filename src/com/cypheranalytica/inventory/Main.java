@@ -19,20 +19,30 @@ public class Main {
     public static void main(String[] args) {
         printBanner();
 
-        // 1. Initialize In-Memory / Persistence DAO layer with rich presentation sample data
+        // 1. Initialize In-Memory / Persistence DAO layer with presentation sample data
         DAOFactory.initialize();
 
         // 2. Start Embedded Web Server for browser frontend (Slides 15 & 16)
+        int port = 8080;
         try {
-            int port = 8080;
             webServer = new WebServer(port);
             webServer.start();
         } catch (Exception e) {
-            System.err.println("Notice: Web server could not bind to port 8080 (" + e.getMessage() + ").");
+            System.err.println("Notice: Web server could not bind to port " + port + " (" + e.getMessage() + ").");
             System.out.println("You can still use the interactive Console Menu below, or open web/index.html in any browser!");
         }
 
-        // 3. Start interactive console UI
+        // Check if started in web-only mode
+        if (args.length > 0 && (args[0].equalsIgnoreCase("--web") || args[0].equalsIgnoreCase("-w") || args[0].equalsIgnoreCase("server"))) {
+            System.out.println(">> Running in dedicated Web Server mode. Press [Ctrl + C] in terminal to stop.");
+            try {
+                Thread.currentThread().join();
+            } catch (InterruptedException ignored) {
+            }
+            return;
+        }
+
+        // 3. Start interactive console UI in terminal
         ConsoleMenu menu = new ConsoleMenu();
         menu.start();
     }

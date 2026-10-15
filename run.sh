@@ -51,5 +51,5 @@ echo ">> Compilation successful."
 echo ">> Launching application..."
 echo ""
 
-# Run Application
-$JAVA_CMD -cp "bin:lib/*" com.cypheranalytica.inventory.Main
+# Run Application passing any command-line arguments
+$JAVA_CMD -cp "bin:lib/*" com.cypheranalytica.inventory.Main "$@"

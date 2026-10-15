@@ -1,0 +1,39 @@
+# Compiled class files
+bin/
+*.class
+
+# Package files
+*.jar
+*.war
+*.nar
+*.ear
+*.zip
+*.tar.gz
+*.rar
+
+# But keep the bundled MySQL JDBC driver in lib/
+!lib/mysql-connector-j-*.jar
+
+# Maven target
+target/
+
+# IDE specific files
+.idea/
+*.iml
+.vscode/
+.settings/
+.project
+.classpath
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Generated reports & logs
+*.log
+inventory_report.txt

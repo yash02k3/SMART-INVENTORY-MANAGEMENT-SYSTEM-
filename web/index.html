@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>InventoryPro — Smart Inventory Management System</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="app-layout">
+        <!-- SIDEBAR -->
+        <aside class="sidebar">
+            <div class="brand-header">
+                <div class="brand-logo">
+                    <span class="logo-badge">IM</span>
+                    <span class="brand-title">Inventory<span class="accent-text">Pro</span></span>
+                </div>
+                <div class="brand-subtitle">Smart Inventory System</div>
+            </div>
+
+            <nav class="nav-menu">
+                <div class="nav-section-label">MAIN MENU</div>
+                <a href="#dashboard" class="nav-item active" data-view="dashboard">
+                    <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+                    <span>Dashboard</span>
+                </a>
+                <a href="#items" class="nav-item" data-view="items">
+                    <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
+                    <span>Item Inventory</span>
+                    <span class="badge badge-counter" id="sidebar-item-count">8</span>
+                </a>
+                <a href="#suppliers" class="nav-item" data-view="suppliers">
+                    <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+                    <span>Suppliers</span>
+                </a>
+                <a href="#transactions" class="nav-item" data-view="transactions">
+                    <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 4 23 10 17 10"></polyline><polyline points="1 20 1 14 7 14"></polyline><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path></svg>
+                    <span>Transactions</span>
+                </a>
+                <a href="#simulation" class="nav-item" data-view="simulation">
+                    <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+                    <span>Multithreading Test</span>
+                    <span class="badge badge-accent">Live</span>
+                </a>
+
+                <div class="nav-section-label">SYSTEM</div>
+                <a href="#reports" class="nav-item" data-view="reports">
+                    <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
+                    <span>Reports & Analytics</span>
+                </a>
+                <a href="#about" class="nav-item" data-view="about">
+                    <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+                    <span>About Project</span>
+                </a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <div class="user-profile">
+                    <div class="avatar">P</div>
+                    <div class="user-details">
+                        <div class="user-name">Payal</div>
+                        <div class="user-role">B.Tech AI & DS • GITM</div>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- MAIN CONTENT AREA -->
+        <main class="main-wrapper">
+            <!-- TOP NAVBAR -->
+            <header class="top-navbar">
+                <div class="navbar-left">
+                    <h1 class="page-title" id="page-heading">Inventory Dashboard</h1>
+                    <p class="page-subtitle" id="page-subheading">Welcome back — here's what's happening in your store today.</p>
+                </div>
+
+                <div class="navbar-right">
+                    <div class="status-indicator">
+                        <span class="status-dot"></span>
+                        <span class="status-label">In-Memory Engine Active</span>
+                    </div>
+
+                    <button class="icon-btn" id="btn-quick-alerts" title="View Low Stock Alerts">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
+                        <span class="icon-badge" id="nav-alert-badge">4</span>
+                    </button>
+
+                    <button class="btn btn-primary" id="btn-open-add-modal">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                        <span>Add New Item</span>
+                    </button>
+                </div>
+            </header>
+
+            <!-- VIEW CONTAINER -->
+            <div class="content-body">
+
+                <!-- ====================================================
+                     1. DASHBOARD VIEW (Matching PDF Slide 15)
+                     ==================================================== -->
+                <section id="view-dashboard" class="content-view active">
+                    <!-- KPI Summary Bar -->
+                    <div class="kpi-grid">
+                        <div class="kpi-card">
+                            <div class="kpi-header">
+                                <span class="kpi-title">TOTAL STOCK UNITS</span>
+                                <span class="kpi-tag positive">+4.2%</span>
+                            </div>
+                            <div class="kpi-value" id="kpi-total-units">1,248</div>
+                            <div class="kpi-desc">Across all product categories</div>
+                        </div>
+
+                        <div class="kpi-card">
+                            <div class="kpi-header">
+                                <span class="kpi-title">LOW-STOCK ALERTS</span>
+                                <span class="kpi-tag warning" id="kpi-low-tag">Action needed</span>
+                            </div>
+                            <div class="kpi-value text-warning" id="kpi-low-stock">4</div>
+                            <div class="kpi-desc">Items at or below reorder limit</div>
+                        </div>
+
+                        <div class="kpi-card">
+                            <div class="kpi-header">
+                                <span class="kpi-title">ACTIVE SUPPLIERS</span>
+                                <span class="kpi-tag neutral">Partners</span>
+                            </div>
+                            <div class="kpi-value" id="kpi-suppliers">5</div>
+                            <div class="kpi-desc">Verified supply vendors</div>
+                        </div>
+
+                        <div class="kpi-card">
+                            <div class="kpi-header">
+                                <span class="kpi-title">INVENTORY VALUATION</span>
+                                <span class="kpi-tag info">Live</span>
+                            </div>
+                            <div class="kpi-value" id="kpi-total-value">₹5,63,578</div>
+                            <div class="kpi-desc">Total asset worth on hand</div>
+                        </div>
+                    </div>
+
+                    <!-- Middle Grid: Category Breakdown + Low Stock Feed -->
+                    <div class="dashboard-two-col">
+                        <!-- Left: Category Chart / Breakdown -->
+                        <div class="panel-card">
+                            <div class="panel-header">
+                                <div>
+                                    <h2 class="panel-title">Stock Levels by Category</h2>
+                                    <p class="panel-subtitle">Visual breakdown of quantity on hand across every category</p>
+                                </div>
+                                <span class="badge badge-category-count" id="dash-cat-count">5 Categories</span>
+                            </div>
+                            <div class="category-bars-container" id="category-bars-list">
+                                <!-- Populated dynamically by JS -->
+                            </div>
+                        </div>
+
+                        <!-- Right: Low-Stock Alerts Feed -->
+                        <div class="panel-card">
+                            <div class="panel-header">
+                                <div>
+                                    <h2 class="panel-title">Low-Stock Alerts Feed</h2>
+                                    <p class="panel-subtitle">Ranked list of items closest to their reorder threshold</p>
+                                </div>
+                                <button class="btn btn-sm btn-outline" id="btn-view-all-low">View All</button>
+                            </div>
+                            <div class="alerts-feed-list" id="low-stock-feed-list">
+                                <!-- Populated dynamically by JS -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Bottom: Recent Transactions Log -->
+                    <div class="panel-card mt-6">
+                        <div class="panel-header">
+                            <div>
+                                <h2 class="panel-title">Recent Transactions Log</h2>
+                                <p class="panel-subtitle">Latest stock-in and stock-out entries at a glance</p>
+                            </div>
+                            <button class="btn btn-sm btn-outline" id="btn-goto-transactions">Full Ledger ➔</button>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>TRANSACTION</th>
+                                        <th>ITEM</th>
+                                        <th>TYPE</th>
+                                        <th>QUANTITY</th>
+                                        <th>TOTAL AMOUNT</th>
+                                        <th>COUNTER / ACTOR</th>
+                                        <th>DATE & TIME</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="recent-transactions-tbody">
+                                    <!-- Populated dynamically -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ====================================================
+                     2. ITEM INVENTORY VIEW (Matching PDF Slide 16)
+                     ==================================================== -->
+                <section id="view-items" class="content-view">
+                    <div class="inventory-toolbar">
+                        <div class="toolbar-search">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                            <input type="text" id="items-search-input" placeholder="Search by item name or SKU (e.g. 1042, Mouse)...">
+                        </div>
+
+                        <div class="toolbar-filters">
+                            <button class="filter-pill active" data-filter="all">All Items</button>
+                            <button class="filter-pill" data-filter="low">Low Stock</button>
+
+                            <select class="select-filter" id="category-filter-select">
+                                <option value="all">All Categories</option>
+                            </select>
+
+                            <select class="select-filter" id="supplier-filter-select">
+                                <option value="all">All Suppliers</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="panel-card">
+                        <div class="table-header-meta">
+                            <span id="items-table-count">Showing 8 items</span>
+                            <span class="table-legend">
+                                <span class="dot dot-danger"></span> Critical (&le; 5) &nbsp;
+                                <span class="dot dot-warning"></span> Low Stock (&le; Min) &nbsp;
+                                <span class="dot dot-success"></span> In Stock
+                            </span>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>ITEM</th>
+                                        <th>CATEGORY</th>
+                                        <th>QUANTITY</th>
+                                        <th>UNIT PRICE</th>
+                                        <th>SUPPLIER</th>
+                                        <th>STATUS</th>
+                                        <th class="text-right">ACTIONS</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="items-table-tbody">
+                                    <!-- Populated dynamically -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ====================================================
+                     3. SUPPLIERS VIEW
+                     ==================================================== -->
+                <section id="view-suppliers" class="content-view">
+                    <div class="section-top-bar">
+                        <div>
+                            <h2>Verified Inventory Suppliers</h2>
+                            <p class="text-muted">Maintain supplier contact profiles and linked restock logs</p>
+                        </div>
+                        <button class="btn btn-primary" id="btn-add-supplier-modal">
+                            + Add New Supplier
+                        </button>
+                    </div>
+
+                    <div class="suppliers-grid" id="suppliers-cards-grid">
+                        <!-- Populated dynamically -->
+                    </div>
+                </section>
+
+                <!-- ====================================================
+                     4. TRANSACTIONS LEDGER VIEW
+                     ==================================================== -->
+                <section id="view-transactions" class="content-view">
+                    <div class="section-top-bar">
+                        <div>
+                            <h2>Inventory Transaction Ledger</h2>
+                            <p class="text-muted">Complete audit trail of inward procurements and outward sales</p>
+                        </div>
+                        <div class="toolbar-filters">
+                            <button class="filter-pill active" data-txn-filter="all">All Txns</button>
+                            <button class="filter-pill" data-txn-filter="STOCK_IN">Stock In</button>
+                            <button class="filter-pill" data-txn-filter="STOCK_OUT">Stock Out</button>
+                        </div>
+                    </div>
+
+                    <div class="panel-card">
+                        <div class="table-responsive">
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>TXN CODE</th>
+                                        <th>DATE</th>
+                                        <th>TYPE</th>
+                                        <th>ITEM DETAILS</th>
+                                        <th>QTY</th>
+                                        <th>PRICE</th>
+                                        <th>TOTAL</th>
+                                        <th>COUNTER</th>
+                                        <th>REMARKS</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="full-transactions-tbody">
+                                    <!-- Populated dynamically -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ====================================================
+                     5. MULTITHREADING CONCURRENCY SIMULATION
+                     ==================================================== -->
+                <section id="view-simulation" class="content-view">
+                    <div class="simulation-banner">
+                        <div class="sim-header-info">
+                            <span class="badge badge-accent">Core Java Multi-threading Module</span>
+                            <h2>Simultaneous Counter Checkout Simulator</h2>
+                            <p>Demonstrates race-condition prevention using Java <code>synchronized</code> critical sections. Multiple threads concurrently request stock to verify that <strong>overselling is 100% impossible</strong>.</p>
+                        </div>
+                    </div>
+
+                    <div class="simulation-grid">
+                        <!-- Controls Card -->
+                        <div class="panel-card">
+                            <h3 class="panel-title mb-4">Simulation Parameters</h3>
+
+                            <div class="form-group">
+                                <label for="sim-item-select">Target Inventory Item</label>
+                                <select id="sim-item-select" class="form-control">
+                                    <!-- Populated dynamically -->
+                                </select>
+                                <small class="form-help" id="sim-item-stock-helper">Available stock: -</small>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group col-6">
+                                    <label for="sim-threads-count">Concurrent Threads (Counters)</label>
+                                    <input type="number" id="sim-threads-count" class="form-control" value="4" min="2" max="10">
+                                </div>
+                                <div class="form-group col-6">
+                                    <label for="sim-order-units">Units Requested per Thread</label>
+                                    <input type="number" id="sim-order-units" class="form-control" value="2" min="1" max="50">
+                                </div>
+                            </div>
+
+                            <div class="demand-calc-box">
+                                <div class="demand-row">
+                                    <span>Total Demand:</span>
+                                    <strong id="sim-total-demand">8 units</strong>
+                                </div>
+                                <div class="demand-row">
+                                    <span>Current Stock:</span>
+                                    <strong id="sim-current-stock-preview">4 units</strong>
+                                </div>
+                                <div class="demand-row text-warning">
+                                    <span>Expected Result:</span>
+                                    <span>Orders exceeding available stock will be safely rejected.</span>
+                                </div>
+                            </div>
+
+                            <button class="btn btn-primary btn-block mt-4" id="btn-run-simulation">
+                                ⚡ Launch Concurrent Stress Test
+                            </button>
+                        </div>
+
+                        <!-- Live Console Logs Card -->
+                        <div class="panel-card terminal-card">
+                            <div class="terminal-header">
+                                <div class="terminal-dots">
+                                    <span class="dot red"></span>
+                                    <span class="dot yellow"></span>
+                                    <span class="dot green"></span>
+                                </div>
+                                <span class="terminal-title">Thread Execution & Locking Monitor</span>
+                                <button class="btn btn-xs btn-outline" id="btn-clear-terminal">Clear</button>
+                            </div>
+                            <div class="terminal-body" id="simulation-terminal">
+                                <div class="terminal-line text-muted">> Ready to simulate concurrent threads...</div>
+                                <div class="terminal-line text-muted">> Select parameters on the left and click "Launch Concurrent Stress Test".</div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ====================================================
+                     6. REPORTS & ANALYTICS VIEW
+                     ==================================================== -->
+                <section id="view-reports" class="content-view">
+                    <div class="section-top-bar">
+                        <div>
+                            <h2>Executive Inventory Report</h2>
+                            <p class="text-muted">Real-time statistics, category valuation, and downloadable audit sheet</p>
+                        </div>
+                        <button class="btn btn-outline" id="btn-download-report">
+                            📥 Download Text Report
+                        </button>
+                    </div>
+
+                    <div class="panel-card">
+                        <pre class="ascii-report-box" id="ascii-report-content">
+Generating report...
+                        </pre>
+                    </div>
+                </section>
+
+                <!-- ====================================================
+                     7. ABOUT PROJECT VIEW
+                     ==================================================== -->
+                <section id="view-about" class="content-view">
+                    <div class="about-card">
+                        <div class="about-header">
+                            <div class="about-logo">IM</div>
+                            <div>
+                                <h2>Smart Inventory Management System</h2>
+                                <p class="text-muted">Core Java Internship Project • Summer 2026</p>
+                            </div>
+                        </div>
+
+                        <div class="about-body">
+                            <div class="meta-info-grid">
+                                <div class="meta-item">
+                                    <span class="meta-label">Developer</span>
+                                    <span class="meta-value"><strong>Payal</strong></span>
+                                </div>
+                                <div class="meta-item">
+                                    <span class="meta-label">University Roll No</span>
+                                    <span class="meta-value">248036</span>
+                                </div>
+                                <div class="meta-item">
+                                    <span class="meta-label">Registration No</span>
+                                    <span class="meta-value">241394000031</span>
+                                </div>
+                                <div class="meta-item">
+                                    <span class="meta-label">Branch & Degree</span>
+                                    <span class="meta-value">B.Tech (Artificial Intelligence & Data Science)</span>
+                                </div>
+                                <div class="meta-item">
+                                    <span class="meta-label">College</span>
+                                    <span class="meta-value">Global Institute of Technology & Management, Gurugram</span>
+                                </div>
+                                <div class="meta-item">
+                                    <span class="meta-label">Internship Partner</span>
+                                    <span class="meta-value">Cypher Analytica, Indore</span>
+                                </div>
+                                <div class="meta-item">
+                                    <span class="meta-label">Industry Mentor</span>
+                                    <span class="meta-value">Mr. Rajesh Kumar (Center Manager)</span>
+                                </div>
+                                <div class="meta-item">
+                                    <span class="meta-label">Internal Academic Guide</span>
+                                    <span class="meta-value">Ms. Barkha Tanwar</span>
+                                </div>
+                            </div>
+
+                            <hr class="divider">
+
+                            <h3>Technologies & Concepts Demonstrated</h3>
+                            <div class="tech-pills">
+                                <span class="tech-pill">Core Java (JDK 17)</span>
+                                <span class="tech-pill">OOP & Clean Architecture</span>
+                                <span class="tech-pill">Custom Exception Handling</span>
+                                <span class="tech-pill">Java Collections Framework</span>
+                                <span class="tech-pill">Multithreading (Runnable & synchronized)</span>
+                                <span class="tech-pill">Race-Condition Prevention</span>
+                                <span class="tech-pill">Zero-Dependency HTTP Server</span>
+                                <span class="tech-pill">Responsive Dashboard UI</span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+            </div>
+        </main>
+    </div>
+
+    <!-- MODAL: ADD NEW ITEM -->
+    <div class="modal-overlay" id="modal-add-item">
+        <div class="modal-box">
+            <div class="modal-header">
+                <h3>Add New Inventory Product</h3>
+                <button class="modal-close" data-close-modal>&times;</button>
+            </div>
+            <form id="form-add-item">
+                <div class="modal-body">
+                    <div class="form-row">
+                        <div class="form-group col-6">
+                            <label for="new-sku">SKU Code *</label>
+                            <input type="text" id="new-sku" class="form-control" placeholder="e.g. 5040, USB-C" required>
+                        </div>
+                        <div class="form-group col-6">
+                            <label for="new-category">Category *</label>
+                            <select id="new-category" class="form-control" required>
+                                <!-- Categories populated by JS -->
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="new-name">Product Name *</label>
+                        <input type="text" id="new-name" class="form-control" placeholder="e.g. Mechanical Gaming Keyboard" required>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group col-4">
+                            <label for="new-quantity">Initial Stock *</label>
+                            <input type="number" id="new-quantity" class="form-control" value="20" min="0" required>
+                        </div>
+                        <div class="form-group col-4">
+                            <label for="new-price">Unit Price (₹) *</label>
+                            <input type="number" id="new-price" class="form-control" value="499" min="1" step="0.5" required>
+                        </div>
+                        <div class="form-group col-4">
+                            <label for="new-threshold">Min Alert Level *</label>
+                            <input type="number" id="new-threshold" class="form-control" value="10" min="1" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="new-supplier">Primary Supplier</label>
+                        <select id="new-supplier" class="form-control">
+                            <!-- Suppliers populated by JS -->
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline" data-close-modal>Cancel</button>
+                    <button type="submit" class="btn btn-primary">Save Product</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL: QUICK STOCK TRANSACTION (STOCK IN / STOCK OUT) -->
+    <div class="modal-overlay" id="modal-stock-action">
+        <div class="modal-box">
+            <div class="modal-header">
+                <h3 id="stock-modal-title">Record Stock Update</h3>
+                <button class="modal-close" data-close-modal>&times;</button>
+            </div>
+            <form id="form-stock-action">
+                <input type="hidden" id="action-item-id">
+                <input type="hidden" id="action-txn-type" value="STOCK_IN">
+
+                <div class="modal-body">
+                    <div class="item-summary-box mb-4">
+                        <span class="text-muted">Item:</span>
+                        <strong id="action-item-name">-</strong>
+                        <span class="mx-2">•</span>
+                        <span class="text-muted">Available Stock:</span>
+                        <strong id="action-item-qty">0 units</strong>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="action-quantity" id="action-qty-label">Quantity</label>
+                        <input type="number" id="action-quantity" class="form-control" value="10" min="1" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="action-counter">Counter / Location / Channel</label>
+                        <input type="text" id="action-counter" class="form-control" value="Main Counter">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="action-remarks">Remarks / Invoice / Notes</label>
+                        <input type="text" id="action-remarks" class="form-control" placeholder="e.g. Restock shipment received">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline" data-close-modal>Cancel</button>
+                    <button type="submit" class="btn btn-primary" id="btn-submit-stock-action">Confirm Transaction</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL: ADD SUPPLIER -->
+    <div class="modal-overlay" id="modal-add-supplier">
+        <div class="modal-box">
+            <div class="modal-header">
+                <h3>Add New Supplier</h3>
+                <button class="modal-close" data-close-modal>&times;</button>
+            </div>
+            <form id="form-add-supplier">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="sup-name">Company Name *</label>
+                        <input type="text" id="sup-name" class="form-control" placeholder="e.g. Bharat Electronics Ltd." required>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-6">
+                            <label for="sup-contact">Contact Person</label>
+                            <input type="text" id="sup-contact" class="form-control" placeholder="e.g. Vikram Jain">
+                        </div>
+                        <div class="form-group col-6">
+                            <label for="sup-phone">Phone Number *</label>
+                            <input type="text" id="sup-phone" class="form-control" placeholder="+91 98260XXXXX" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="sup-email">Email Address</label>
+                        <input type="email" id="sup-email" class="form-control" placeholder="sales@vendor.com">
+                    </div>
+                    <div class="form-group">
+                        <label for="sup-address">Address / City</label>
+                        <input type="text" id="sup-address" class="form-control" placeholder="Indore, Madhya Pradesh">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline" data-close-modal>Cancel</button>
+                    <button type="submit" class="btn btn-primary">Save Supplier</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- NOTIFICATION TOAST -->
+    <div id="toast-container" class="toast-container"></div>
+
+    <script src="app.js"></script>
+</body>
+</html>

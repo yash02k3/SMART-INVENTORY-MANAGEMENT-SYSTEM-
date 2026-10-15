@@ -5,7 +5,7 @@
 # Author: Payal (Roll No. 248036) | Cypher Analytica Internship
 # ====================================================================
 
-# Resolve Java & Javac intelligently across macOS, Linux, and Homebrew
+# Resolve Java & Javac
 if [ -f "/opt/homebrew/opt/openjdk@17/bin/javac" ]; then
     JAVAC_CMD="/opt/homebrew/opt/openjdk@17/bin/javac"
     JAVA_CMD="/opt/homebrew/opt/openjdk@17/bin/java"
@@ -24,7 +24,7 @@ elif [ -x "/usr/libexec/java_home" ] && /usr/libexec/java_home >/dev/null 2>&1; 
     JAVA_CMD="$JH/bin/java"
 else
     echo "Error: Java Development Kit (JDK 11+ or 17+) is required."
-    echo "Please install Java (e.g., brew install openjdk@17 or sudo apt install default-jdk)."
+    echo "Please install Java (e.g. brew install openjdk@17)."
     exit 1
 fi
 
@@ -33,17 +33,14 @@ echo " Starting Smart Inventory Management System..."
 echo " Using: $($JAVA_CMD -version 2>&1 | head -n 1)"
 echo "=========================================================="
 
-# Create bin directory
 mkdir -p bin
-
-# Find all Java source files
 SOURCES=$(find src -name "*.java")
 
 # Compile
 echo ">> Compiling Java source files..."
-$JAVAC_CMD -cp "lib/*:src" -d bin $SOURCES
+$JAVAC_CMD -d bin $SOURCES
 if [ $? -ne 0 ]; then
-    echo ">> [ERROR] Compilation failed. Please check error messages above."
+    echo ">> [ERROR] Compilation failed."
     exit 1
 fi
 
@@ -51,5 +48,5 @@ echo ">> Compilation successful."
 echo ">> Launching application..."
 echo ""
 
-# Run Application passing any command-line arguments
-$JAVA_CMD -cp "bin:lib/*" com.cypheranalytica.inventory.Main "$@"
+# Run Application
+$JAVA_CMD -cp bin com.cypheranalytica.inventory.Main "$@"

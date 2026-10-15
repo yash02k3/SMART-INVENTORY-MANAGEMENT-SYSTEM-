@@ -1,7 +1,6 @@
 package com.cypheranalytica.inventory.ui;
 
 import com.cypheranalytica.inventory.dao.DAOFactory;
-import com.cypheranalytica.inventory.dao.DBConnection;
 import com.cypheranalytica.inventory.exception.DuplicateItemException;
 import com.cypheranalytica.inventory.exception.InsufficientStockException;
 import com.cypheranalytica.inventory.exception.InventoryException;
@@ -77,7 +76,7 @@ public class ConsoleMenu {
                     handleConcurrencySimulation();
                     break;
                 case 9:
-                    handleDatabaseSettings();
+                    handleAboutProject();
                     break;
                 case 0:
                     running = false;
@@ -94,16 +93,12 @@ public class ConsoleMenu {
     }
 
     private void displayMainMenu() {
-        String modeBadge = (DAOFactory.getCurrentMode() == DAOFactory.StorageMode.MYSQL)
-                ? "[Storage: MySQL (inventory_db)]"
-                : "[Storage: In-Memory Demo Mode]";
-
         System.out.println();
         System.out.println("================================================================================");
         System.out.println("                     SMART INVENTORY MANAGEMENT SYSTEM                          ");
         System.out.println("                  Cypher Analytica Summer Internship Project                    ");
         System.out.println("             Submitted by: Payal (Roll No: 248036 | B.Tech AI & DS)             ");
-        System.out.println("                     " + modeBadge);
+        System.out.println("                     [Engine: In-Memory Collections]                            ");
         System.out.println("================================================================================");
         System.out.println("  1. Add New Item");
         System.out.println("  2. Update Stock Quantity (Stock In / Stock Out)");
@@ -113,7 +108,7 @@ public class ConsoleMenu {
         System.out.println("  6. Manage Suppliers");
         System.out.println("  7. View Transaction History");
         System.out.println("  8. Multithreading Concurrency Simulation (Stress Test)");
-        System.out.println("  9. Database Connection & Storage Mode Settings");
+        System.out.println("  9. Project & Internship Information");
         System.out.println("  0. Exit");
         System.out.println("--------------------------------------------------------------------------------");
     }
@@ -425,39 +420,21 @@ public class ConsoleMenu {
     }
 
     // -------------------------------------------------------------------------
-    // OPTION 9: Database Connection & Storage Mode Settings
+    // OPTION 9: Project & Internship Information
     // -------------------------------------------------------------------------
-    private void handleDatabaseSettings() {
-        System.out.println("\n----------- [9. DATABASE SETTINGS & PERSISTENCE MODE] -----------");
-        System.out.println("Current Storage Mode: " + DAOFactory.getCurrentMode());
-        System.out.println("  1. Switch / Connect to MySQL (inventory_db)");
-        System.out.println("  2. Switch to In-Memory Demo Mode (No database required)");
-        System.out.println("  3. Test MySQL Connection");
-        System.out.println("  0. Back to Main Menu");
-
-        int choice = readIntChoice("Select option: ", 0, 3);
-        if (choice == 1) {
-            DBConnection db = DBConnection.getInstance();
-            if (db.testConnection()) {
-                db.ensureSchema();
-                DAOFactory.setStorageMode(DAOFactory.StorageMode.MYSQL);
-                System.out.println(">> [SUCCESS] Switched active storage to MySQL Database.");
-            } else {
-                System.err.println(">> [FAILED] Cannot connect to MySQL: " + db.getLastErrorMessage());
-                System.out.println(">> Remaining in current mode (" + DAOFactory.getCurrentMode() + ").");
-            }
-        } else if (choice == 2) {
-            DAOFactory.setStorageMode(DAOFactory.StorageMode.IN_MEMORY_DEMO);
-            System.out.println(">> [SUCCESS] Switched active storage to In-Memory Demo Mode.");
-        } else if (choice == 3) {
-            DBConnection db = DBConnection.getInstance();
-            System.out.println("Testing MySQL connection on " + db.getProperties().getProperty("db.url") + "...");
-            if (db.testConnection()) {
-                System.out.println(">> [SUCCESS] MySQL server is ONLINE and responding!");
-            } else {
-                System.err.println(">> [FAILED] MySQL connection test failed: " + db.getLastErrorMessage());
-            }
-        }
+    private void handleAboutProject() {
+        System.out.println("\n------------------ [9. PROJECT INFORMATION] -------------------");
+        System.out.println("  Project Title   : Smart Inventory Management System");
+        System.out.println("  Developer       : Payal (Roll No: 248036)");
+        System.out.println("  Degree & Branch : B.Tech (AI & DS), 3rd Year");
+        System.out.println("  College         : Global Institute of Technology & Management, Gurugram");
+        System.out.println("  Internship      : Cypher Analytica, Indore (June - August 2026)");
+        System.out.println("  Industry Mentor : Mr. Rajesh Kumar (Center Manager)");
+        System.out.println("  Academic Guide  : Ms. Barkha Tanwar");
+        System.out.println("  Engine          : In-Memory Java Collections (ArrayList, HashMap, TreeMap)");
+        System.out.println("  Concurrency     : Multithreading (Runnable, synchronized blocks)");
+        System.out.println("  Web UI          : http://localhost:8080 (Modern Dashboard)");
+        System.out.println("----------------------------------------------------------------");
     }
 
     private void displayExitMessage() {

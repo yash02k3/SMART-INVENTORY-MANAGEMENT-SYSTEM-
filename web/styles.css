@@ -1253,3 +1253,221 @@ body {
 .mt-6 { margin-top: 24px; }
 .mb-4 { margin-bottom: 16px; }
 .mx-2 { margin-left: 8px; margin-right: 8px; }
+
+/* ====================================================================
+   LOGIN SCREEN
+   ==================================================================== */
+.login-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle at top right, #1e2238, #0f1221);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    z-index: 1000;
+}
+
+.login-card {
+    background: #ffffff;
+    width: 100%;
+    max-width: 440px;
+    border-radius: 16px;
+    padding: 36px 32px;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.35);
+    text-align: center;
+}
+
+.login-brand {
+    margin-bottom: 24px;
+}
+
+.justify-center {
+    justify-content: center;
+}
+
+.text-dark {
+    color: #0f172a !important;
+}
+
+.login-subtitle {
+    font-size: 13.5px;
+    color: #475569;
+    font-weight: 600;
+    margin-top: 6px;
+}
+
+.login-tag {
+    display: inline-block;
+    background-color: #eef2ff;
+    color: #4361ee;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 3px 10px;
+    border-radius: 9999px;
+    margin-top: 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.login-form {
+    text-align: left;
+    margin-top: 20px;
+}
+
+.input-with-icon {
+    position: relative;
+}
+
+.input-icon {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 18px;
+    height: 18px;
+    color: #64748b;
+}
+
+.input-with-icon .form-control {
+    padding-left: 38px;
+    height: 44px;
+    font-size: 14px;
+}
+
+.btn-login {
+    height: 44px;
+    font-size: 14.5px;
+    margin-top: 10px;
+    box-shadow: 0 4px 12px rgba(67, 97, 238, 0.3);
+}
+
+.login-error-msg {
+    background-color: #fee2e2;
+    border: 1px solid #fca5a5;
+    color: #991b1b;
+    padding: 10px 14px;
+    border-radius: 8px;
+    font-size: 12.5px;
+    margin-bottom: 16px;
+    text-align: center;
+    font-weight: 600;
+}
+
+.login-credentials-box {
+    background-color: #f8fafc;
+    border: 1px dashed #cbd5e1;
+    border-radius: 10px;
+    padding: 12px 14px;
+    margin-top: 22px;
+    text-align: left;
+    font-size: 12px;
+}
+
+.cred-title {
+    font-weight: 700;
+    color: #1e293b;
+    margin-bottom: 4px;
+}
+
+.cred-row {
+    color: #475569;
+    margin-top: 2px;
+}
+
+.cred-row code {
+    background-color: #e2e8f0;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-weight: 700;
+    color: #0f172a;
+}
+
+.login-footer {
+    margin-top: 20px;
+    color: #94a3b8;
+    font-size: 11.5px;
+    line-height: 1.4;
+}
+
+/* ====================================================================
+   NAV ALERT BUTTON & LOGOUT
+   ==================================================================== */
+.nav-alert-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background-color: #ffffff;
+    border: 1.5px solid #cbd5e1;
+    color: #0f172a;
+    padding: 8px 14px;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    font-weight: 700;
+    font-size: 13px;
+    position: relative;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+    transition: all 0.15s ease-in-out;
+}
+
+.nav-alert-btn:hover {
+    background-color: #f8fafc;
+    border-color: #94a3b8;
+    transform: translateY(-1px);
+}
+
+.alert-bell-icon {
+    width: 18px;
+    height: 18px;
+    stroke: #1e293b;
+}
+
+.alert-btn-text {
+    font-weight: 700;
+    color: #1e293b;
+}
+
+.nav-alert-btn .icon-badge {
+    position: static;
+    margin-left: 2px;
+    background-color: #ef4444;
+    color: #ffffff;
+    font-size: 11px;
+    font-weight: 800;
+    min-width: 20px;
+    height: 20px;
+    padding: 0 6px;
+    border-radius: 9999px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 4px rgba(239, 68, 68, 0.3);
+}
+
+.logout-btn {
+    margin-left: auto;
+    background: none;
+    border: none;
+    color: #94a3b8;
+    cursor: pointer;
+    padding: 6px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.15s;
+}
+
+.logout-btn svg {
+    width: 18px;
+    height: 18px;
+}
+
+.logout-btn:hover {
+    background-color: rgba(239, 68, 68, 0.15);
+    color: #ef4444;
+}
+

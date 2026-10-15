@@ -63,6 +63,7 @@ class InventoryApp {
     }
 
     async init() {
+        this.setupAuth();
         this.setupNavigation();
         this.setupEventListeners();
         this.populateDropdowns();
@@ -70,6 +71,52 @@ class InventoryApp {
 
         // Attempt to sync with Java backend if available
         await this.syncWithBackend();
+    }
+
+    // ================================================================
+    // AUTHENTICATION (LOGIN / LOGOUT)
+    // ================================================================
+    setupAuth() {
+        const loginScreen = document.getElementById("login-screen");
+        const mainApp = document.getElementById("main-app");
+        const loginForm = document.getElementById("login-form");
+        const loginError = document.getElementById("login-error");
+        const btnLogout = document.getElementById("btn-logout");
+
+        // Check if already logged in this session
+        const isLoggedIn = sessionStorage.getItem("inventory_logged_in") === "true";
+        if (isLoggedIn) {
+            loginScreen.style.display = "none";
+            mainApp.style.display = "flex";
+        } else {
+            loginScreen.style.display = "flex";
+            mainApp.style.display = "none";
+        }
+
+        loginForm?.addEventListener("submit", (e) => {
+            e.preventDefault();
+            const username = document.getElementById("login-username").value.trim().toLowerCase();
+            const password = document.getElementById("login-password").value.trim();
+
+            // Accepted credentials: admin / admin123 OR payal / admin123
+            if ((username === "admin" || username === "payal") && password === "admin123") {
+                sessionStorage.setItem("inventory_logged_in", "true");
+                loginScreen.style.display = "none";
+                mainApp.style.display = "flex";
+                loginError.style.display = "none";
+                this.showToast("Welcome back! Signed in as " + (username === "payal" ? "Payal" : "Administrator"), "success");
+            } else {
+                loginError.textContent = "Invalid username or password! Check demo credentials below.";
+                loginError.style.display = "block";
+            }
+        });
+
+        btnLogout?.addEventListener("click", () => {
+            sessionStorage.removeItem("inventory_logged_in");
+            mainApp.style.display = "none";
+            loginScreen.style.display = "flex";
+            this.showToast("Signed out successfully.", "info");
+        });
     }
 
     async syncWithBackend() {
@@ -84,7 +131,6 @@ class InventoryApp {
                 }
             }
         } catch (e) {
-            // Running standalone or file preview - purely in-memory
             console.log(">> Running in standalone In-Memory Demo mode");
         }
     }
@@ -133,7 +179,6 @@ class InventoryApp {
             items: { title: "Item Inventory", sub: "Manage, filter, and track all cataloged items in stock." },
             suppliers: { title: "Supplier Management", sub: "Maintain registered vendors, points of contact, and linked shipments." },
             transactions: { title: "Transactions Ledger", sub: "Complete historical log of stock inward and outward movements." },
-            simulation: { title: "Multithreading Concurrency Simulator", sub: "Simulate concurrent cashier counters and verify race condition avoidance." },
             reports: { title: "Reports & Analytics", sub: "Comprehensive inventory metrics, valuation, and downloadable audit sheets." },
             about: { title: "Project & Internship Details", sub: "Academic details, mentor acknowledgements, and technical concepts." }
         };
@@ -144,9 +189,6 @@ class InventoryApp {
 
         if (viewName === "reports") {
             this.renderAsciiReport();
-        }
-        if (viewName === "simulation") {
-            this.populateSimulationItemSelect();
         }
     }
 
@@ -208,15 +250,6 @@ class InventoryApp {
             });
         });
 
-        // Simulation listeners
-        document.getElementById("sim-item-select")?.addEventListener("change", () => this.updateSimulationPreviews());
-        document.getElementById("sim-threads-count")?.addEventListener("input", () => this.updateSimulationPreviews());
-        document.getElementById("sim-order-units")?.addEventListener("input", () => this.updateSimulationPreviews());
-        document.getElementById("btn-run-simulation")?.addEventListener("click", () => this.runConcurrencySimulation());
-        document.getElementById("btn-clear-terminal")?.addEventListener("click", () => {
-            document.getElementById("simulation-terminal").innerHTML = '<div class="terminal-line text-muted">> Terminal cleared. Ready for next simulation.</div>';
-        });
-
         // Download Report
         document.getElementById("btn-download-report")?.addEventListener("click", () => this.downloadReportFile());
     }
@@ -225,27 +258,23 @@ class InventoryApp {
     // DROPDOWNS
     // ================================================================
     populateDropdowns() {
-        // Category filter in toolbar
         const catSelect = document.getElementById("category-filter-select");
         if (catSelect) {
             catSelect.innerHTML = '<option value="all">All Categories</option>' +
                 this.categories.map(c => `<option value="${c.name}">${c.name}</option>`).join("");
         }
 
-        // Supplier filter in toolbar
         const supSelect = document.getElementById("supplier-filter-select");
         if (supSelect) {
             supSelect.innerHTML = '<option value="all">All Suppliers</option>' +
                 this.suppliers.map(s => `<option value="${s.name}">${s.name}</option>`).join("");
         }
 
-        // Add Item Modal Categories
         const modalCat = document.getElementById("new-category");
         if (modalCat) {
             modalCat.innerHTML = this.categories.map(c => `<option value="${c.id}">${c.name}</option>`).join("");
         }
 
-        // Add Item Modal Suppliers
         const modalSup = document.getElementById("new-supplier");
         if (modalSup) {
             modalSup.innerHTML = this.suppliers.map(s => `<option value="${s.id}">${s.name}</option>`).join("");
@@ -306,7 +335,6 @@ class InventoryApp {
         const container = document.getElementById("category-bars-list");
         if (!container) return;
 
-        // Group by category
         const catMap = {};
         let totalUnits = 0;
 
@@ -421,7 +449,6 @@ class InventoryApp {
         if (!tbody) return;
 
         let filtered = this.items.filter(item => {
-            // Text search
             if (this.searchQuery) {
                 const matchName = item.name.toLowerCase().includes(this.searchQuery);
                 const matchSku = item.sku.toLowerCase().includes(this.searchQuery);
@@ -429,17 +456,14 @@ class InventoryApp {
                 if (!matchName && !matchSku && !matchCat) return false;
             }
 
-            // Low stock pill
             if (this.currentFilter === "low" && item.quantity > item.reorderThreshold) {
                 return false;
             }
 
-            // Category select
             if (this.selectedCategory !== "all" && item.category !== this.selectedCategory) {
                 return false;
             }
 
-            // Supplier select
             if (this.selectedSupplier !== "all" && item.supplier !== this.selectedSupplier) {
                 return false;
             }
@@ -597,7 +621,6 @@ class InventoryApp {
 
         this.items.unshift(newItem);
 
-        // Record initial intake txn
         if (qty > 0) {
             this.transactions.unshift({
                 id: Date.now(),
@@ -687,7 +710,6 @@ class InventoryApp {
 
         this.transactions.unshift(newTxn);
 
-        // Async notify backend
         const apiPath = type === "STOCK_IN" ? "/api/transactions/in" : "/api/transactions/out";
         fetch(apiPath, {
             method: "POST",
@@ -736,117 +758,6 @@ class InventoryApp {
         this.renderSuppliersGrid();
         this.renderKPIs();
         this.showToast(`Supplier '${name}' added successfully!`, "success");
-    }
-
-    // ================================================================
-    // MULTITHREADING CONCURRENCY SIMULATION
-    // ================================================================
-    populateSimulationItemSelect() {
-        const select = document.getElementById("sim-item-select");
-        if (!select) return;
-
-        select.innerHTML = this.items.map(i => {
-            return `<option value="${i.id}">${i.name} (SKU: #${i.sku}) — Available: ${i.quantity} units</option>`;
-        }).join("");
-
-        this.updateSimulationPreviews();
-    }
-
-    updateSimulationPreviews() {
-        const select = document.getElementById("sim-item-select");
-        if (!select) return;
-
-        const itemId = parseInt(select.value);
-        const item = this.items.find(i => i.id === itemId);
-
-        const threads = parseInt(document.getElementById("sim-threads-count").value) || 4;
-        const units = parseInt(document.getElementById("sim-order-units").value) || 2;
-        const totalDemand = threads * units;
-
-        document.getElementById("sim-total-demand").textContent = `${totalDemand} units (${threads} × ${units})`;
-
-        if (item) {
-            document.getElementById("sim-current-stock-preview").textContent = `${item.quantity} units`;
-            document.getElementById("sim-item-stock-helper").textContent = `Available stock: ${item.quantity} units. Threshold: ${item.reorderThreshold}`;
-        }
-    }
-
-    async runConcurrencySimulation() {
-        const select = document.getElementById("sim-item-select");
-        const itemId = parseInt(select.value);
-        const item = this.items.find(i => i.id === itemId);
-        if (!item) return;
-
-        const threadsCount = parseInt(document.getElementById("sim-threads-count").value) || 4;
-        const unitsPerThread = parseInt(document.getElementById("sim-order-units").value) || 2;
-
-        const terminal = document.getElementById("simulation-terminal");
-        terminal.innerHTML = "";
-
-        const log = (msg, cssClass = "") => {
-            const line = document.createElement("div");
-            line.className = `terminal-line ${cssClass}`;
-            line.innerHTML = msg;
-            terminal.appendChild(line);
-            terminal.scrollTop = terminal.scrollHeight;
-        };
-
-        log(`========================================================================`, "terminal-accent");
-        log(`[SPAWN] Initializing ${threadsCount} Worker Threads (Billing Counters)...`, "terminal-accent");
-        log(`Target Product: <strong>${item.name}</strong> | Initial Stock: <strong>${item.quantity} units</strong>`, "terminal-info");
-        log(`Total Demand: ${threadsCount * unitsPerThread} units (${threadsCount} threads × ${unitsPerThread} units each)`, "terminal-info");
-        log(`------------------------------------------------------------------------`);
-
-        let simulatedStock = item.quantity;
-        let successful = 0;
-        let rejected = 0;
-
-        const counters = ["Counter-1 (Billing)", "Counter-2 (Express)", "Counter-3 (Online App)", "Counter-4 (Corporate)", "Counter-5 (Self-Checkout)", "Counter-6 (POS Terminal)"];
-
-        // Simulate concurrent async execution with randomized delays
-        const tasks = [];
-        for (let i = 1; i <= threadsCount; i++) {
-            const counterName = counters[(i - 1) % counters.length] || `Counter-${i}`;
-            const threadName = `Thread-${i}`;
-
-            tasks.push(new Promise((resolve) => {
-                const randomDelay = Math.floor(Math.random() * 300 + 80);
-                setTimeout(() => {
-                    log(`>> [${threadName} | ${counterName}] Acquiring synchronized lock...`);
-
-                    // CRITICAL SECTION SIMULATION
-                    if (simulatedStock >= unitsPerThread) {
-                        simulatedStock -= unitsPerThread;
-                        successful++;
-                        const txnCode = `TXN-OUT-${Math.floor(1000 + Math.random() * 9000)}`;
-                        log(`   <span class="terminal-success">✓ SUCCESS [${threadName}]</span> Deducted ${unitsPerThread} units. Code: ${txnCode}. Remaining: ${simulatedStock} units`);
-                    } else {
-                        rejected++;
-                        log(`   <span class="terminal-reject">✗ REJECTED [${threadName}]</span> Insufficient stock! Requested ${unitsPerThread}, but only ${simulatedStock} available.`);
-                    }
-
-                    log(`>> [${threadName} | ${counterName}] Released synchronized lock.`);
-                    resolve();
-                }, randomDelay);
-            }));
-        }
-
-        await Promise.all(tasks);
-
-        // Apply deduction to live item
-        item.quantity = simulatedStock;
-
-        log(`------------------------------------------------------------------------`);
-        log(`[SIMULATION SUMMARY & AUDIT VERIFICATION]`, "terminal-accent");
-        log(`Successful Orders Processed : <strong>${successful}</strong>`, "terminal-success");
-        log(`Rejected Orders (Oversell)  : <strong>${rejected}</strong>`, "terminal-reject");
-        log(`Final Stock in Inventory    : <strong>${simulatedStock} units</strong>`);
-        log(`Race Condition Prevention   : <strong class="terminal-success">PASSED (Zero overselling)</strong>`);
-        log(`========================================================================\n`, "terminal-accent");
-
-        this.renderAll();
-        this.updateSimulationPreviews();
-        this.showToast(`Simulation completed! ${successful} orders processed, ${rejected} rejected.`, "info");
     }
 
     // ================================================================
